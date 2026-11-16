@@ -1,0 +1,12 @@
+{
+  "name": "Залізне небо 2.0",
+  "short_name": "Залізне небо",
+  "description": "Панель швидкого доступу до офіційних сповіщень",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#07111f",
+  "theme_color": "#07111f",
+  "lang": "uk"
+}
