@@ -1,0 +1,195 @@
+<!doctype html>
+
+<html lang="uk">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<meta name="theme-color" content="#07111f">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<meta name="apple-mobile-web-app-title" content="Залізне небо">
+
+<link rel="manifest" href="manifest.webmanifest">
+
+<title>Залізне небо 2.0</title>
+
+<style>
+
+*{box-sizing:border-box}
+
+body{margin:0;padding:env(safe-area-inset-top) 16px 30px;background:#07111f;color:#f3f7fb;font-family:-apple-system,BlinkMacSystemFont,sans-serif}
+
+main{max-width:700px;margin:auto}
+
+header{display:flex;justify-content:space-between;padding:24px 0}
+
+.brand{color:#4da3ff;font-size:12px;letter-spacing:2px;font-weight:bold}
+
+.clock{text-align:right;font-variant-numeric:tabular-nums}
+
+.time{font-size:23px;font-weight:bold}
+
+.date{font-size:12px;color:#9fb0c4}
+
+h1{font-size:29px;margin:25px 0 5px}
+
+.blue{color:#4da3ff}
+
+.sub,.muted{color:#9fb0c4;font-size:13px;line-height:1.5}
+
+.panel{background:#101e30;border:1px solid #263950;border-radius:18px;padding:18px;margin:14px 0}
+
+.warning{background:#292318;border-color:#725b2a}
+
+.warning strong{color:#ffd166}
+
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:#ffd166;margin-right:9px}
+
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:15px}
+
+.btn{display:block;text-align:center;text-decoration:none;color:white;background:#1a3858;border-radius:12px;padding:14px 8px;font-weight:bold;font-size:14px}
+
+.primary{background:#1767ad}
+
+.regions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:13px}
+
+.region{background:#0b1726;border:1px solid #263950;border-radius:12px;padding:13px}
+
+.region small{display:block;color:#9fb0c4;font-size:11px;margin-top:6px}
+
+footer{text-align:center;color:#71849a;font-size:11px;padding:20px}
+
+</style>
+
+</head>
+
+<body>
+
+<main>
+
+<header>
+
+<div class="brand">UA • MONITORING</div>
+
+<div class="clock">
+
+<div class="time" id="time">--:--:--</div>
+
+<div class="date" id="date">Завантаження...</div>
+
+</div>
+
+</header>
+
+<h1>Залізне небо <span class="blue">2.0</span></h1>
+
+<p class="sub">Панель швидкого доступу до офіційних сповіщень</p>
+
+<section class="panel">
+
+<strong><span class="dot"></span><span id="net">Перевірка з'єднання...</span></strong>
+
+<p class="muted">Стан інтернету на цьому пристрої</p>
+
+</section>
+
+<section class="panel warning">
+
+<strong>Увага: оперативні дані не підключені</strong>
+
+<p class="muted">Ця версія не отримує дані про повітряні цілі чи тривоги. Вона не замінює офіційні сповіщення. Для перевірки ситуації використовуйте офіційні джерела.</p>
+
+<div class="actions">
+
+<a class="btn primary" href="https://map.ukrainealarm.com/">Мапа тривог</a>
+
+<a class="btn" href="https://www.ukrainealarm.com/">Повітряна тривога</a>
+
+</div>
+
+</section>
+
+<section class="panel">
+
+<strong>Швидкий доступ</strong>
+
+<div class="actions">
+
+<a class="btn" href="https://alerts.in.ua/">Alerts.in.ua</a>
+
+<a class="btn" href="https://map.ukrainealarm.com/">Офіційна мапа</a>
+
+</div>
+
+</section>
+
+<section class="panel">
+
+<strong>Обрані області</strong>
+
+<p class="muted">Ярлики для швидкої перевірки. Статуси тривог тут не відображаються.</p>
+
+<div class="regions">
+
+<div class="region">Харківська<small>Перевірити офіційне джерело</small></div>
+
+<div class="region">Полтавська<small>Перевірити офіційне джерело</small></div>
+
+<div class="region">Сумська<small>Перевірити офіційне джерело</small></div>
+
+<div class="region">Дніпропетровська<small>Перевірити офіційне джерело</small></div>
+
+</div>
+
+</section>
+
+<footer>Залізне небо 2.0 • Інформаційна панель</footer>
+
+</main>
+
+<script>
+
+function updateClock(){
+
+const d=new Date();
+
+document.getElementById('time').textContent=
+
+new Intl.DateTimeFormat('uk-UA',{timeZone:'Europe/Kyiv',hour:'2-digit',minute:'2-digit',second:'2-digit'}).format(d);
+
+document.getElementById('date').textContent=
+
+new Intl.DateTimeFormat('uk-UA',{timeZone:'Europe/Kyiv',weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(d);
+
+}
+
+function updateNetwork(){
+
+document.getElementById('net').textContent=
+
+navigator.onLine?'Інтернет-з’єднання доступне':'Немає інтернет-з’єднання';
+
+}
+
+updateClock();
+
+updateNetwork();
+
+setInterval(updateClock,1000);
+
+addEventListener('online',updateNetwork);
+
+addEventListener('offline',updateNetwork);
+
+</script>
+
+</body>
+
+</html>
