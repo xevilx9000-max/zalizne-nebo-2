@@ -240,7 +240,7 @@ function startGeo() {
       currentPosition = position;
       geoStatus.textContent = "ГЕОЛОКАЦІЯ АКТИВНА";
     },
-        error => {
+    error => {
       if (geoWatchId !== null) {
         navigator.geolocation.clearWatch(geoWatchId);
         geoWatchId = null;
@@ -256,9 +256,7 @@ function startGeo() {
       maximumAge: 10000,
       timeout: 15000
     }
-  );if (geoToggle.checked) {
-  startGeo();
-}
+  );
 }
 
 geoToggle.addEventListener("change", () => {
