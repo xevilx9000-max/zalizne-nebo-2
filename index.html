@@ -214,7 +214,40 @@ const geoStatus = document.getElementById("geoStatus");
 
 let geoWatchId = null;
 let currentPosition = null;
+function getDistanceKm(lat1, lon1, lat2, lon2) {
+  const R = 6371;
+  const toRad = value => value * Math.PI / 180;
 
+  const dLat = toRad(lat2 - lat1);
+  const dLon = toRad(lon2 - lon1);
+
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(toRad(lat1)) *
+    Math.cos(toRad(lat2)) *
+    Math.sin(dLon / 2) ** 2;
+
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
+function filterNearbyEvents(events) {
+  if (!currentPosition) return [];
+
+  const { latitude, longitude } = currentPosition.coords;
+  const radius = Number(radiusRange.value);
+
+  return events.filter(event => {
+    if (!Number.isFinite(event.lat) ||
+        !Number.isFinite(event.lon)) return false;
+
+    return getDistanceKm(
+      latitude,
+      longitude,
+      event.lat,
+      event.lon
+    ) <= radius;
+  });
+}
 function stopGeo() {
   if (geoWatchId !== null) {
     navigator.geolocation.clearWatch(geoWatchId);
