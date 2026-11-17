@@ -239,27 +239,7 @@ footer{
     <div class="region">
       <span>Радіус пошуку</span>
       <b><span id="eventsRadius">10</span> км</b>
-      const civilMode = document.getElementById("civilMode");
-const extendedMode = document.getElementById("extendedMode");
-const modeDescription = document.getElementById("modeDescription");
-
-function setMode(mode) {
-  const extended = mode === "extended";
-
-  civilMode.classList.toggle("active", !extended);
-  extendedMode.classList.toggle("active", extended);
-
-  modeDescription.textContent = extended
-    ? "Розширений моніторинг: джерела, аналітика, історія та регіональна обстановка."
-    : "Громадянський моніторинг: тривоги, безпека, сповіщення та місцеві події.";
-
-  localStorage.setItem("varta_mode", mode);
-}
-
-civilMode.addEventListener("click", () => setMode("civil"));
-extendedMode.addEventListener("click", () => setMode("extended"));
-
-setMode(localStorage.getItem("varta_mode") || "civil");
+      
     </div>
   </div>
 </section>
@@ -297,7 +277,28 @@ const notifyToggle = document.getElementById("notifyToggle");
 const radiusRange = document.getElementById("radiusRange");
 const radiusValue = document.getElementById("radiusValue");
 const eventsRadius = document.getElementById("eventsRadius");
-geoToggle.checked = localStorage.getItem("varta_geo") === "true";
+const civilMode = document.getElementById("civilMode");
+const extendedMode = document.getElementById("extendedMode");
+const modeDescription = document.getElementById("modeDescription");
+
+function setMode(mode) {
+  const extended = mode === "extended";
+
+  civilMode.classList.toggle("active", !extended);
+  extendedMode.classList.toggle("active", extended);
+
+  modeDescription.textContent = extended
+    ? "Розширений моніторинг: джерела, аналітика, історія та регіональна обстановка."
+    : "Громадянський моніторинг: тривоги, безпека, сповіщення та місцеві події.";
+
+  localStorage.setItem("varta_mode", mode);
+}
+
+civilMode.addEventListener("click", () => setMode("civil"));
+extendedMode.addEventListener("click", () => setMode("extended"));
+
+setMode(localStorage.getItem("varta_mode") || "civil");
+    geoToggle.checked = localStorage.getItem("varta_geo") === "true";
 notifyToggle.checked = localStorage.getItem("varta_notify") === "true";
 radiusRange.value = localStorage.getItem("varta_radius") || 10;
 radiusValue.textContent = radiusRange.value;
