@@ -93,7 +93,34 @@ footer{
     <div class="date" id="date">--.--.----</div>
   </div>
 </header>
-
+<section class="section">
+  <div class="heading">00 / НАЛАШТУВАННЯ</div>
+  <div class="panel">
+    <div class="region">
+      <b>ГЕОЛОКАЦІЯ</b>
+      <input type="checkbox" id="geoToggle">
+    </div>
+    <div class="region">
+      <b>СПОВІЩЕННЯ</b>
+      <input type="checkbox" id="notifyToggle">
+    </div>
+    <div class="region">
+      <b>РАДІУС ПОДІЙ</b>
+      <strong><span id="radiusValue">10</span> км</strong>
+    </div>
+    <input
+      type="range"
+      id="radiusRange"
+      min="1"
+      max="50"
+      value="10"
+      style="width:100%;accent-color:#84965b"
+    >
+    <small style="color:var(--muted)">
+      Радіус відображення місцевих подій
+    </small>
+  </div>
+</section>
 <section class="section">
   <div class="heading">01 / СИСТЕМНИЙ СТАТУС</div>
   <div class="panel">
