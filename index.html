@@ -268,7 +268,9 @@ geoToggle.addEventListener("change", () => {
     stopGeo();
   }
 });
-
+if (geoToggle.checked) {
+  startGeo();
+}
 notifyToggle.addEventListener("change", async () => {
   if (notifyToggle.checked && "Notification" in window) {
     const permission = await Notification.requestPermission();
