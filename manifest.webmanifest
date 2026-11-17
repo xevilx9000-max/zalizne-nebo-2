@@ -1,12 +1,13 @@
+
 {
-  "name": "Залізне небо 2.0",
-  "short_name": "Залізне небо",
-  "description": "Панель швидкого доступу до офіційних сповіщень",
+  "name": "ВАРТА",
+  "short_name": "ВАРТА",
+  "description": "Тактична інформаційна система сповіщення",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#07111f",
-  "theme_color": "#07111f",
-  "lang": "uk"
+  "background_color": "#111611",
+  "theme_color": "#171d17",
+  "icons": []
 }
