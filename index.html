@@ -297,8 +297,10 @@ function setMode(mode) {
     ? "Розширений моніторинг: джерела, аналітика, історія та регіональна обстановка."
     : "Громадянський моніторинг: тривоги, безпека, сповіщення та місцеві події.";
 
-  localStorage.setItem("varta_mode", mode);
-}
+  document.querySelectorAll("[data-mode]").forEach(section => {
+  section.style.display = section.dataset.mode === mode ? "" : "none";
+});
+
 
 civilMode.addEventListener("click", () => setMode("civil"));
 extendedMode.addEventListener("click", () => setMode("extended"));
