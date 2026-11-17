@@ -2,7 +2,6 @@
 const CACHE_NAME = "varta-shell-v3";
 
 const FILES = [
-const FILES = [
   "./",
   "./index.html",
   "./manifest.webmanifest",
