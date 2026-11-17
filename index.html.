@@ -4,221 +4,657 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#080e12">
+<meta name="theme-color" content="#171a17">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="ВАРТА">
-<title>ВАРТА — Центр безпеки</title>
+<title>ВАРТА — Безпека та інформація</title>
+
 <style>
 :root {
-  --bg:#080e12;
-  --panel:#101a20;
-  --line:#24343b;
-  --green:#a5e6b2;
-  --muted:#82949b;
-  --amber:#e8b75d;
+  --bg:#171a17;
+  --panel:#222720;
+  --panel2:#2b3029;
+  --olive:#87936a;
+  --olive2:#a3ae82;
+  --text:#edf0e8;
+  --muted:#9da497;
+  --red:#b94b43;
+  --yellow:#c59b48;
+  --line:#3a4037;
+  --safe-top:env(safe-area-inset-top);
+  --safe-bottom:env(safe-area-inset-bottom);
 }
-* {box-sizing:border-box}
-body {
+* { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html,body {
   margin:0;
-  background:radial-gradient(ellipse at top,#14252b 0%,var(--bg) 55%);
-  color:#e9f1ee;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  background:var(--bg);
+  color:var(--text);
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  min-height:100vh;
+}
+button { font:inherit; color:inherit; }
+.app {
+  height:100dvh;
+  display:flex;
+  flex-direction:column;
+  padding-top:var(--safe-top);
+  padding-bottom:var(--safe-bottom);
+  max-width:650px;
+  margin:auto;
+  background:var(--bg);
 }
 header {
-  padding:24px 20px 18px;
-  border-bottom:1px solid var(--line);
+  min-height:66px;
+  padding:12px 18px;
   display:flex;
-  justify-content:space-between;
   align-items:center;
+  justify-content:space-between;
+  border-bottom:1px solid var(--line);
+  flex-shrink:0;
 }
-.brand {display:flex;align-items:center;gap:12px}
-.emblem {
-  width:43px;height:43px;border:1px solid var(--green);
-  border-radius:12px;display:grid;place-items:center;
-  color:var(--green);font-size:23px;
+.brand { display:flex; align-items:center; gap:11px; }
+.logo {
+  width:38px;height:38px;border-radius:10px;
+  display:grid;place-items:center;
+  background:var(--olive);color:#151812;
+  font-size:21px;font-weight:900;
 }
-h1 {font-size:23px;letter-spacing:5px;margin:0}
-.sub {font-size:9px;color:var(--muted);letter-spacing:2px;margin-top:4px}
-.clock {text-align:right;font-size:17px;font-weight:600}
-.clock small {display:block;color:var(--muted);font-size:10px;font-weight:400}
-main {padding:18px;max-width:700px;margin:auto}
-.section-title {
-  color:var(--green);font-size:10px;letter-spacing:2px;
-  margin:25px 0 12px;
+.brand-name { font-size:19px;font-weight:850;letter-spacing:2px; }
+.brand-sub { font-size:10px;color:var(--muted);letter-spacing:1.4px;margin-top:2px; }
+.header-actions { display:flex;gap:8px; }
+.icon-btn {
+  width:39px;height:39px;border:1px solid var(--line);
+  border-radius:11px;background:var(--panel);
+  display:grid;place-items:center;font-size:17px;
 }
+main { flex:1; min-height:0; position:relative; }
+.screen {
+  display:none;
+  height:100%;
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  padding:17px 16px 20px;
+  scrollbar-width:thin;
+}
+.screen.active { display:block; }
+h1 { font-size:25px;margin:2px 0 5px;font-weight:800; }
+h2 { font-size:17px;margin:0 0 12px; }
+.subtitle { color:var(--muted);font-size:13px;margin-bottom:17px; }
+.section { margin-top:19px; }
 .card {
-  background:linear-gradient(145deg,#142128,#0d151a);
+  background:var(--panel);
   border:1px solid var(--line);
-  border-radius:15px;padding:17px;margin-bottom:12px;
+  border-radius:15px;
+  padding:15px;
+  margin-bottom:11px;
 }
-.status {display:flex;align-items:center;gap:12px}
-.dot {
-  width:10px;height:10px;border-radius:50%;
-  background:var(--amber);box-shadow:0 0 12px #e8b75d66;
+.card-title { font-size:14px;font-weight:750;margin-bottom:7px; }
+.muted { color:var(--muted);font-size:12px;line-height:1.45; }
+.status-row { display:flex;align-items:center;gap:10px; }
+.dot { width:9px;height:9px;border-radius:50%;background:var(--yellow);flex-shrink:0; }
+.dot.green { background:#7f9d68; }
+.dot.red { background:var(--red); }
+.status-text { font-size:13px;font-weight:700; }
+.status-note { font-size:11px;color:var(--muted);margin-top:3px; }
+.grid2 { display:grid;grid-template-columns:1fr 1fr;gap:10px; }
+.tile {
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:15px 13px;
+  min-height:91px;
+  text-align:left;
 }
-.status strong {font-size:14px;letter-spacing:1px}
-.status p {font-size:11px;color:var(--muted);margin:5px 0 0}
-.tag {
-  margin-left:auto;border:1px solid #806332;color:var(--amber);
-  border-radius:6px;padding:5px 7px;font-size:9px;
+.tile:active,.action:active,.nav-btn:active { transform:scale(.98); }
+.tile-icon { font-size:22px;margin-bottom:8px; }
+.tile-name { font-size:13px;font-weight:750; }
+.tile-desc { color:var(--muted);font-size:10px;margin-top:4px; }
+.action {
+  border:1px solid var(--line);
+  background:var(--panel2);
+  border-radius:11px;
+  padding:12px 14px;
+  font-size:12px;font-weight:700;
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  text-decoration:none;
 }
-.map {
-  min-height:220px;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;text-align:center;
-  background:
-    linear-gradient(#23353b55 1px,transparent 1px),
-    linear-gradient(90deg,#23353b55 1px,transparent 1px),
-    #0b1419;
-  background-size:25px 25px;
+.action.primary { background:var(--olive);color:#151812;border-color:var(--olive); }
+.action.danger { background:#552c29;border-color:#87413b;color:#fff; }
+.action.full { width:100%; }
+.actions { display:flex;gap:8px;flex-wrap:wrap;margin-top:12px; }
+.notice {
+  background:#302b20;border:1px solid #61502d;
+  border-radius:12px;padding:12px;
+  font-size:12px;line-height:1.45;color:#e8d7ad;
 }
-.map-icon {font-size:42px;color:var(--green);margin-bottom:10px}
-.map strong {letter-spacing:2px;font-size:13px}
-.map p {color:var(--muted);font-size:11px;max-width:250px;line-height:1.5}
-.button {
-  display:block;text-align:center;text-decoration:none;
-  background:#172b2d;border:1px solid #456b56;
-  color:var(--green);padding:14px;border-radius:10px;
-  font-size:12px;font-weight:600;letter-spacing:1px;
-  margin-top:12px;
+.source-row {
+  display:flex;align-items:center;justify-content:space-between;
+  gap:10px;padding:12px 0;border-bottom:1px solid var(--line);
 }
-.grid {display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.metric {background:#101a20;border:1px solid var(--line);border-radius:12px;padding:14px}
-.metric small {color:var(--muted);font-size:9px;letter-spacing:1px}
-.metric strong {display:block;margin-top:9px;font-size:14px}
-.metric span {color:var(--amber);font-size:10px}
-.source {display:flex;justify-content:space-between;gap:10px;padding:12px 0;border-bottom:1px solid var(--line);font-size:11px}
-.source:last-child {border:0}
-.source span:last-child {color:var(--amber)}
-footer {text-align:center;padding:25px;color:#607179;font-size:9px;letter-spacing:1px}
+.source-row:last-child { border-bottom:0; }
+.source-name { font-size:13px;font-weight:700; }
+.source-state { font-size:10px;color:var(--yellow);margin-top:3px; }
+a { color:var(--olive2); }
+.nav {
+  flex-shrink:0;
+  min-height:67px;
+  padding:7px 5px calc(5px + var(--safe-bottom));
+  background:#1d211c;
+  border-top:1px solid var(--line);
+  display:grid;grid-template-columns:repeat(5,1fr);
+}
+.nav-btn {
+  border:0;background:transparent;color:var(--muted);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:4px;font-size:9px;font-weight:650;
+}
+.nav-btn .nav-icon { font-size:19px;line-height:22px; }
+.nav-btn.active { color:var(--olive2); }
+.nav-btn.sos { color:#e17c70; }
+.check {
+  display:flex;align-items:center;gap:11px;
+  padding:12px 0;border-bottom:1px solid var(--line);
+  font-size:13px;
+}
+.check:last-child { border:0; }
+.check input { width:18px;height:18px;accent-color:var(--olive); }
+.compass {
+  width:190px;height:190px;margin:15px auto 20px;
+  border:2px solid var(--olive);border-radius:50%;
+  position:relative;display:grid;place-items:center;
+  background:radial-gradient(circle,#30372c 0,#20251f 68%,#171a17 69%);
+}
+.compass:before,.compass:after {
+  content:"";position:absolute;background:#687354;
+}
+.compass:before { width:1px;height:100%; }
+.compass:after { height:1px;width:100%; }
+.needle {
+  z-index:1;font-size:45px;color:#d4d9c5;
+  transform:rotate(0deg);transition:transform .2s;
+}
+.compass-label {
+  position:absolute;font-size:10px;color:var(--muted);font-weight:800;
+}
+.north { top:9px; }.south { bottom:9px; }
+.east { right:11px; }.west { left:11px; }
+.modal {
+  display:none;position:fixed;inset:0;z-index:10;
+  background:#000b;align-items:center;justify-content:center;
+  padding:22px;
+}
+.modal.show { display:flex; }
+.modal-box {
+  width:100%;max-width:390px;background:var(--panel);
+  border:1px solid var(--line);border-radius:18px;padding:20px;
+}
+.modal-box h2 { font-size:20px; }
+.modal-box p { color:var(--muted);font-size:13px;line-height:1.5; }
+.modal-actions { display:flex;gap:9px;margin-top:17px; }
+.modal-actions button { flex:1; }
+.field {
+  width:100%;padding:12px;border-radius:10px;
+  background:var(--panel2);border:1px solid var(--line);
+  color:var(--text);margin:8px 0 14px;
+}
+.small-label { font-size:11px;color:var(--muted); }
+.version { text-align:center;color:#697064;font-size:10px;margin:18px 0 4px; }
+@media(min-width:600px) {
+  .screen { padding-left:22px;padding-right:22px; }
+}
 </style>
 </head>
+
 <body>
+<div class="app">
+
 <header>
-<section class="section">
-  <div class="heading">00 / НАЛАШТУВАННЯ</div>
-  <div class="panel">
-    <div class="region">
-      <b>ГЕОЛОКАЦІЯ</b>
-      <input type="checkbox" id="geoToggle">
-<small id="geoStatus" style="color:var(--muted);display:block;padding:5px 2px">Геолокацію вимкнено</small>
-    </div>
-    <div class="region">
-      <b>СПОВІЩЕННЯ</b>
-      <input type="checkbox" id="notifyToggle">
-    </div>
-    <div class="region">
-      <b>РАДІУС ПОДІЙ</b>
-      <strong><span id="radiusValue">10</span> км</strong>
-    </div>
-    <input
-      type="range"
-      id="radiusRange"
-      min="1"
-      max="50"
-      value="10"
-      style="width:100%;accent-color:#84965b"
-    >
-    <small style="color:var(--muted)">
-      Радіус відображення місцевих подій
-    </small>
-  </div>
-</section>
   <div class="brand">
-    <div class="emblem">⛨</div>
+    <div class="logo">В</div>
     <div>
-      <h1>ВАРТА</h1>
-      <div class="sub">ЦЕНТР ГРОМАДСЬКОЇ БЕЗПЕКИ</div>
+      <div class="brand-name">ВАРТА</div>
+      <div class="brand-sub">БЕЗПЕКА • ІНФОРМАЦІЯ • ДІЯ</div>
     </div>
   </div>
-  <div class="clock">
-    <span id="time">--:--:--</span>
-    <small id="date">ЗАВАНТАЖЕННЯ</small>
+  <div class="header-actions">
+    <button class="icon-btn" onclick="showScreen('sources')" aria-label="Джерела">◉</button>
+    <button class="icon-btn" onclick="showScreen('settings')" aria-label="Налаштування">⚙</button>
   </div>
 </header>
 
 <main>
-  <div class="section-title">01 / ЗАГАЛЬНИЙ СТАН</div>
+
+<!-- ГОЛОВНА -->
+<section class="screen active" id="home">
+  <h1>Ситуаційний центр</h1>
+  <div class="subtitle" id="currentDate">Інформаційна панель</div>
+
   <div class="card">
-    <div class="status">
-      <div class="dot"></div>
+    <div class="status-row">
+      <span class="dot"></span>
       <div>
-        <strong>ДЖЕРЕЛО ДАНИХ НЕ ПІДКЛЮЧЕНО</strong>
-        <p>Статус повітряних тривог не перевірено</p>
+        <div class="status-text">Дані повітряної тривоги не підключені</div>
+        <div class="status-note">ВАРТА поки не отримує оперативні сигнали через API</div>
       </div>
-      <div class="tag">ОЧІКУВАННЯ</div>
+    </div>
+    <div class="actions">
+      <a class="action primary" href="https://alerts.in.ua/" target="_blank" rel="noopener">Перевірити тривоги ↗</a>
+      <a class="action" href="https://dsns.gov.ua/" target="_blank" rel="noopener">ДСНС ↗</a>
     </div>
   </div>
 
-  <div class="section-title">02 / КАРТА УКРАЇНИ</div>
-  <div class="card map">
-    <div class="map-icon">⌖</div>
-    <strong>ГЕОІНФОРМАЦІЙНИЙ МОДУЛЬ</strong>
-    <p>Для перегляду актуальних офіційних попереджень відкрий карту зовнішнього джерела.</p>
-    <a class="button" href="https://map.ukrainealarm.com/" target="_blank" rel="noopener">ВІДКРИТИ ОФІЦІЙНУ КАРТУ ↗</a>
+  <div class="notice">
+    ⚠️ Не покладайся лише на ВАРТУ. Перевіряй офіційні сповіщення та дотримуйся вказівок місцевої влади й екстрених служб.
   </div>
 
-  <div class="section-title">03 / СИСТЕМНІ ПОКАЗНИКИ</div>
-  <div class="grid">
-    <div class="metric">
-      <small>СТАН ЗВ'ЯЗКУ</small>
-      <strong id="connection">ПЕРЕВІРКА</strong>
-      <span>Інтернет-з'єднання</span>
-    </div>
-    <div class="metric">
-      <small>ОНОВЛЕННЯ</small>
-      <strong>НЕ ПІДКЛЮЧЕНО</strong>
-      <span>Очікується джерело</span>
-    </div>
-    <div class="metric">
-      <small>ЧАС СИСТЕМИ</small>
-      <strong>ЛОКАЛЬНИЙ</strong>
-      <span>Годинник пристрою</span>
-    </div>
-    <div class="metric">
-      <small>РЕЖИМ</small>
-      <strong>ІНФОРМАЦІЙНИЙ</strong>
-      <span>Версія 1.0 / Alpha</span>
+  <div class="section">
+    <h2>Швидкий доступ</h2>
+    <div class="grid2">
+      <button class="tile" onclick="showScreen('map')">
+        <div class="tile-icon">🗺️</div>
+        <div class="tile-name">Мапа</div>
+        <div class="tile-desc">Ситуаційні карти та ресурси</div>
+      </button>
+      <button class="tile" onclick="showScreen('tactics')">
+        <div class="tile-icon">🧭</div>
+        <div class="tile-name">Тактичний набір</div>
+        <div class="tile-desc">Компас та чек-лист</div>
+      </button>
+      <button class="tile" onclick="showScreen('sos')">
+        <div class="tile-icon">🆘</div>
+        <div class="tile-name">Екстрені служби</div>
+        <div class="tile-desc">101 • 102 • 103 • 112</div>
+      </button>
+      <button class="tile" onclick="showScreen('sources')">
+        <div class="tile-icon">📡</div>
+        <div class="tile-name">Джерела</div>
+        <div class="tile-desc">Офіційна інформація та OSINT</div>
+      </button>
     </div>
   </div>
 
-  <div class="section-title">04 / ЦЕНТР ДЖЕРЕЛ</div>
+  <div class="section">
+    <h2>Стан системи</h2>
+    <div class="card">
+      <div class="source-row">
+        <div><div class="source-name">Офіційні сповіщення</div><div class="source-state">Зовнішнє посилання · API не підключено</div></div>
+        <span class="dot"></span>
+      </div>
+      <div class="source-row">
+        <div><div class="source-name">DeepState</div><div class="source-state">OSINT · зовнішня карта</div></div>
+        <span class="dot"></span>
+      </div>
+      <div class="source-row">
+        <div><div class="source-name">Геолокація</div><div class="source-state" id="geoStatus">Не запитувалась</div></div>
+        <span class="dot" id="geoDot"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- МАПА -->
+<section class="screen" id="map">
+  <h1>Мапа</h1>
+  <div class="subtitle">Оперативні карти та корисні георесурси</div>
+
   <div class="card">
-    <div class="source"><span>Повітряна тривога</span><span>ЗОВНІШНЄ ДЖЕРЕЛО</span></div>
-    <div class="source"><span>ДСНС України</span><span>ОФІЦІЙНЕ</span></div>
-    <div class="source"><span>Історія подій</span><span>НЕ ПІДКЛЮЧЕНО</span></div>
-    <a class="button" href="https://www.dsns.gov.ua/" target="_blank" rel="noopener">ВІДКРИТИ ДСНС ↗</a>
-    <a class="button" href="https://www.ukrainealarm.com/" target="_blank" rel="noopener">ПОВІТРЯНА ТРИВОГА ↗</a>
+    <div class="card-title">DeepStateMap</div>
+    <div class="muted">OSINT-карта. Інформація про лінію зіткнення та зміни обстановки. Дані не є офіційним повідомленням державного органу.</div>
+    <div class="actions">
+      <a class="action primary full" href="https://deepstatemap.live/" target="_blank" rel="noopener">Відкрити DeepState ↗</a>
+    </div>
   </div>
 
-  <div class="section-title">05 / ПРО СИСТЕМУ</div>
   <div class="card">
-    <p style="font-size:12px;line-height:1.7;color:#a9b8bc;margin:0">
-      ВАРТА — персональна інформаційна панель громадської безпеки.
-      Дані про тривоги, попередження та безпеку мають перевірятися
-      за офіційними джерелами. Ця початкова версія не отримує
-      оперативних даних автоматично.
-    </p>
+    <div class="card-title">Мапа повітряних тривог</div>
+    <div class="muted">Перегляд актуальних сповіщень на зовнішньому ресурсі.</div>
+    <div class="actions">
+      <a class="action full" href="https://alerts.in.ua/" target="_blank" rel="noopener">Відкрити мапу тривог ↗</a>
+    </div>
   </div>
+
+  <div class="card">
+    <div class="card-title">Мапа укриттів</div>
+    <div class="muted">Інтерактивна база укриттів ще не підключена. Перевіряй адресу та доступність укриття через місцеву владу або офіційні ресурси громади.</div>
+    <div class="actions">
+      <a class="action full" href="https://dsns.gov.ua/" target="_blank" rel="noopener">Ресурси ДСНС ↗</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Твоя геолокація</div>
+    <div class="muted" id="locationText">Координати не запитувались.</div>
+    <div class="actions">
+      <button class="action primary" onclick="getLocation()">Визначити місце</button>
+    </div>
+  </div>
+
+  <div class="notice">Дані зовнішніх карт можуть оновлюватися із затримкою. Завжди перевіряй час оновлення та першоджерело.</div>
+</section>
+
+<!-- ТАКТИКА -->
+<section class="screen" id="tactics">
+  <h1>Тактичний набір</h1>
+  <div class="subtitle">Інструменти та базова підготовка</div>
+
+  <div class="card">
+    <div class="card-title">Компас</div>
+    <div class="compass">
+      <span class="compass-label north">N</span>
+      <span class="compass-label south">S</span>
+      <span class="compass-label east">E</span>
+      <span class="compass-label west">W</span>
+      <div class="needle" id="needle">↑</div>
+    </div>
+    <div class="muted" style="text-align:center" id="compassStatus">Для роботи компаса потрібен дозвіл на орієнтацію пристрою.</div>
+    <div class="actions" style="justify-content:center">
+      <button class="action primary" onclick="startCompass()">Увімкнути компас</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Тривожний набір</div>
+    <div class="muted">Познач речі, які вже підготовлені. Список зберігається на цьому пристрої.</div>
+    <div id="checklist">
+      <label class="check"><input type="checkbox" data-item="water"> Запас питної води</label>
+      <label class="check"><input type="checkbox" data-item="food"> Продукти тривалого зберігання</label>
+      <label class="check"><input type="checkbox" data-item="documents"> Документи та копії</label>
+      <label class="check"><input type="checkbox" data-item="medicine"> Аптечка та необхідні ліки</label>
+      <label class="check"><input type="checkbox" data-item="power"> Павербанк та зарядні кабелі</label>
+      <label class="check"><input type="checkbox" data-item="light"> Ліхтарик і батарейки</label>
+      <label class="check"><input type="checkbox" data-item="radio"> Радіоприймач</label>
+      <label class="check"><input type="checkbox" data-item="clothes"> Теплий одяг</label>
+      <label class="check"><input type="checkbox" data-item="cash"> Готівка</label>
+      <label class="check"><input type="checkbox" data-item="hygiene"> Засоби гігієни</label>
+    </div>
+    <div class="muted" id="checkProgress" style="margin-top:10px">Підготовлено: 0 із 10</div>
+  </div>
+</section>
+
+<!-- SOS -->
+<section class="screen" id="sos">
+  <h1>Екстрені служби</h1>
+  <div class="subtitle">Номери для виклику в Україні</div>
+
+  <div class="notice">Натискання кнопки відкриє підтвердження. Після підтвердження телефон перейде до виклику.</div>
+
+  <div class="section">
+    <div class="card">
+      <div class="status-row">
+        <div style="font-size:25px">🚒</div>
+        <div style="flex:1"><div class="card-title">101 — Пожежна служба</div><div class="muted">Пожежі та рятувальні операції</div></div>
+        <button class="action danger" onclick="confirmCall('101','Пожежна служба')">Виклик</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="status-row">
+        <div style="font-size:25px">🚓</div>
+        <div style="flex:1"><div class="card-title">102 — Поліція</div><div class="muted">Правопорушення та загрози безпеці</div></div>
+        <button class="action danger" onclick="confirmCall('102','Поліція')">Виклик</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="status-row">
+        <div style="font-size:25px">🚑</div>
+        <div style="flex:1"><div class="card-title">103 — Швидка допомога</div><div class="muted">Невідкладна медична допомога</div></div>
+        <button class="action danger" onclick="confirmCall('103','Швидка допомога')">Виклик</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="status-row">
+        <div style="font-size:25px">🆘</div>
+        <div style="flex:1"><div class="card-title">112 — Єдиний номер</div><div class="muted">Єдиний номер екстреної допомоги</div></div>
+        <button class="action danger" onclick="confirmCall('112','Єдина екстрена служба')">Виклик</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="muted">Якщо є безпосередня загроза життю, телефонуй до екстрених служб негайно. Не використовуй застосунок замість виклику допомоги.</div>
+</section>
+
+<!-- ДЖЕРЕЛА -->
+<section class="screen" id="sources">
+  <h1>Інформаційні джерела</h1>
+  <div class="subtitle">Офіційні ресурси та OSINT</div>
+
+  <div class="card">
+    <div class="card-title">Офіційні джерела</div>
+    <div class="source-row">
+      <div><div class="source-name">ДСНС України</div><div class="source-state">Офіційна інформація</div></div>
+      <a class="action" href="https://dsns.gov.ua/" target="_blank" rel="noopener">Відкрити ↗</a>
+    </div>
+    <div class="source-row">
+      <div><div class="source-name">Повітряні Сили ЗСУ</div><div class="source-state">Офіційний Telegram-канал</div></div>
+      <a class="action" href="https://t.me/kpszsu" target="_blank" rel="noopener">Відкрити ↗</a>
+    </div>
+    <div class="source-row">
+      <div><div class="source-name">Повітряна тривога</div><div class="source-state">Зовнішній сервіс сповіщень</div></div>
+      <a class="action" href="https://alerts.in.ua/" target="_blank" rel="noopener">Відкрити ↗</a>
+    </div>
+    <div class="source-row">
+      <div><div class="source-name">Урядовий портал</div><div class="source-state">Офіційна інформація</div></div>
+      <a class="action" href="https://www.kmu.gov.ua/" target="_blank" rel="noopener">Відкрити ↗</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">OSINT та аналітика</div>
+    <div class="source-row">
+      <div><div class="source-name">DeepStateMap</div><div class="source-state">OSINT · не офіційне джерело</div></div>
+      <a class="action" href="https://deepstatemap.live/" target="_blank" rel="noopener">Відкрити ↗</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Допомога Україні та ЗСУ</div>
+    <div class="muted">Переходь лише на перевірені офіційні ресурси та перевіряй реквізити перед переказом.</div>
+    <div class="source-row">
+      <div><div class="source-name">UNITED24</div><div class="source-state">Офіційна фандрейзингова платформа</div></div>
+      <a class="action" href="https://u24.gov.ua/" target="_blank" rel="noopener">Відкрити ↗</a>
+    </div>
+  </div>
+
+  <div class="notice">ВАРТА поки не збирає автоматично публікації цих джерел. Посилання відкривають їхні зовнішні сторінки.</div>
+</section>
+
+<!-- НАЛАШТУВАННЯ -->
+<section class="screen" id="settings">
+  <h1>Налаштування</h1>
+  <div class="subtitle">Параметри застосунку</div>
+
+  <div class="card">
+    <div class="card-title">Геолокація</div>
+    <div class="muted">Дозволяє визначити координати пристрою. Дані не надсилаються на сервер ВАРТИ.</div>
+    <div class="actions">
+      <button class="action primary full" onclick="getLocation()">Запросити геолокацію</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Сповіщення</div>
+    <div class="muted">Підтримка push-сповіщень ще не підключена. Ця кнопка не створює фонові оповіщення.</div>
+    <div class="source-row">
+      <div><div class="source-name">Push API</div><div class="source-state">Очікує налаштування сервера</div></div>
+      <span class="dot"></span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Про застосунок</div>
+    <div class="source-row"><span class="muted">Версія</span><strong>3.0.0</strong></div>
+    <div class="source-row"><span class="muted">Режим</span><strong>Інформаційний прототип</strong></div>
+    <div class="source-row"><span class="muted">Підключення API</span><strong style="color:var(--yellow)">Не налаштовано</strong></div>
+  </div>
+
+  <div class="notice">ВАРТА — допоміжний інформаційний інструмент. Не є офіційною державною системою оповіщення.</div>
+  <div class="version">ВАРТА 3.0.0 · UKRAINE</div>
+</section>
+
 </main>
 
-<footer>ВАРТА / ЗАЛІЗНЕ НЕБО 2.0<br>ІНФОРМАЦІЙНА СИСТЕМА · ALPHA</footer>
+<nav class="nav">
+  <button class="nav-btn active" data-screen="home" onclick="showScreen('home')"><span class="nav-icon">⌂</span>Головна</button>
+  <button class="nav-btn" data-screen="map" onclick="showScreen('map')"><span class="nav-icon">◈</span>Мапа</button>
+  <button class="nav-btn" data-screen="tactics" onclick="showScreen('tactics')"><span class="nav-icon">✥</span>Тактика</button>
+  <button class="nav-btn sos" data-screen="sos" onclick="showScreen('sos')"><span class="nav-icon">🆘</span>SOS</button>
+  <button class="nav-btn" data-screen="sources" onclick="showScreen('sources')"><span class="nav-icon">◎</span>Джерела</button>
+</nav>
+</div>
+
+<!-- ПІДТВЕРДЖЕННЯ ДЗВІНКА -->
+<div class="modal" id="callModal">
+  <div class="modal-box">
+    <h2 id="callTitle">Підтвердити виклик?</h2>
+    <p id="callDescription">Буде відкрито телефонний виклик.</p>
+    <div class="modal-actions">
+      <button class="action" onclick="closeCallModal()">Скасувати</button>
+      <button class="action danger" onclick="makeCall()">Телефонувати</button>
+    </div>
+  </div>
+</div>
 
 <script>
-function updateClock() {
-  const now = new Date();
-  document.getElementById('time').textContent =
-    now.toLocaleTimeString('uk-UA');
-  document.getElementById('date').textContent =
-    now.toLocaleDateString('uk-UA',{day:'2-digit',month:'long',year:'numeric'});
+const screens = document.querySelectorAll('.screen');
+const navButtons = document.querySelectorAll('.nav-btn');
+
+function showScreen(id) {
+  screens.forEach(screen => screen.classList.toggle('active', screen.id === id));
+  navButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.screen === id));
 }
-updateClock();
-setInterval(updateClock,1000);
-document.getElementById('connection').textContent =
-  navigator.onLine ? 'ОНЛАЙН' : 'ОФЛАЙН';
-window.addEventListener('online',()=>document.getElementById('connection').textContent='ОНЛАЙН');
-window.addEventListener('offline',()=>document.getElementById('connection').textContent='ОФЛАЙН');
+
+const dateEl = document.getElementById('currentDate');
+dateEl.textContent = new Date().toLocaleDateString('uk-UA', {
+  weekday:'long', day:'numeric', month:'long', year:'numeric'
+});
+
+// SOS
+let pendingNumber = null;
+
+function confirmCall(number, service) {
+  pendingNumber = number;
+  document.getElementById('callTitle').textContent = service;
+  document.getElementById('callDescription').textContent =
+    'Зараз буде відкрито виклик за номером ' + number + '. Продовжити?';
+  document.getElementById('callModal').classList.add('show');
+}
+
+function closeCallModal() {
+  pendingNumber = null;
+  document.getElementById('callModal').classList.remove('show');
+}
+
+function makeCall() {
+  if (!pendingNumber) return;
+  const number = pendingNumber;
+  closeCallModal();
+  window.location.href = 'tel:' + number;
+}
+
+// ЧЕК-ЛИСТ
+const checklistItems = document.querySelectorAll('#checklist input');
+
+function updateChecklist() {
+  let done = 0;
+  checklistItems.forEach(item => {
+    const checked = localStorage.getItem('varta_' + item.dataset.item) === 'true';
+    item.checked = checked;
+    if (checked) done++;
+  });
+  document.getElementById('checkProgress').textContent =
+    'Підготовлено: ' + done + ' із ' + checklistItems.length;
+}
+
+checklistItems.forEach(item => {
+  item.addEventListener('change', () => {
+    localStorage.setItem('varta_' + item.dataset.item, item.checked);
+    updateChecklist();
+  });
+});
+updateChecklist();
+
+// ГЕОЛОКАЦІЯ
+function getLocation() {
+  const text = document.getElementById('locationText');
+  const status = document.getElementById('geoStatus');
+  const dot = document.getElementById('geoDot');
+
+  if (!navigator.geolocation) {
+    text.textContent = 'Цей браузер не підтримує геолокацію.';
+    status.textContent = 'Недоступна';
+    return;
+  }
+
+  text.textContent = 'Очікуємо дозвіл на визначення місця…';
+
+  navigator.geolocation.getCurrentPosition(
+    position => {
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+      text.textContent = 'Широта: ' + lat.toFixed(5) + ' · Довгота: ' + lon.toFixed(5);
+      status.textContent = 'Дозвіл надано';
+      dot.classList.add('green');
+      const mapLink = document.createElement('a');
+      mapLink.href = 'https://www.google.com/maps?q=' + lat + ',' + lon;
+      mapLink.target = '_blank';
+      mapLink.rel = 'noopener';
+      mapLink.className = 'action';
+      mapLink.textContent = 'Відкрити на мапі ↗';
+      text.appendChild(document.createElement('br'));
+      text.appendChild(mapLink);
+    },
+    error => {
+      text.textContent = 'Не вдалося визначити місце. Перевір дозвіл на геолокацію в налаштуваннях браузера.';
+      status.textContent = 'Не надано або недоступна';
+      dot.classList.remove('green');
+    },
+    { enableHighAccuracy:true, timeout:10000, maximumAge:30000 }
+  );
+}
+
+// КОМПАС
+function handleOrientation(event) {
+  let heading = null;
+
+  if (typeof event.webkitCompassHeading === 'number') {
+    heading = event.webkitCompassHeading;
+  } else if (typeof event.alpha === 'number') {
+    heading = 360 - event.alpha;
+  }
+
+  if (heading !== null) {
+    document.getElementById('needle').style.transform =
+      'rotate(' + heading + 'deg)';
+    document.getElementById('compassStatus').textContent =
+      'Напрямок: ' + Math.round(heading) + '°';
+  }
+}
+
+async function startCompass() {
+  const status = document.getElementById('compassStatus');
+
+  if (!window.DeviceOrientationEvent) {
+    status.textContent = 'Компас не підтримується цим пристроєм або браузером.';
+    return;
+  }
+
+  try {
+    if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+      const permission = await DeviceOrientationEvent.requestPermission();
+      if (permission !== 'granted') {
+        status.textContent = 'Дозвіл на використання компаса не надано.';
+        return;
+      }
+    }
+
+    window.addEventListener('deviceorientation', handleOrientation, true);
+    status.textContent = 'Очікуємо дані датчика…';
+  } catch (error) {
+    status.textContent = 'Не вдалося запустити компас. Перевір дозволи пристрою.';
+  }
+}
 </script>
 </body>
 </html>
