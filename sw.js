@@ -1,10 +1,13 @@
 
-const CACHE_NAME = "varta-shell-v2";
+const CACHE_NAME = "varta-shell-v3";
 
+const FILES = [
 const FILES = [
   "./",
   "./index.html",
-  "./manifest.webmanifest"
+  "./manifest.webmanifest",
+  "./varta-icon-192.png",
+  "./varta-icon-512.png"
 ];
 
 self.addEventListener("install", event => {
