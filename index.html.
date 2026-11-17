@@ -102,6 +102,7 @@ footer {text-align:center;padding:25px;color:#607179;font-size:9px;letter-spacin
     <div class="region">
       <b>ГЕОЛОКАЦІЯ</b>
       <input type="checkbox" id="geoToggle">
+<small id="geoStatus" style="color:var(--muted);display:block;padding:5px 2px">Геолокацію вимкнено</small>
     </div>
     <div class="region">
       <b>СПОВІЩЕННЯ</b>
