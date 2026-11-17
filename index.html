@@ -144,23 +144,28 @@ footer{
     уведомления и местные события.
   </div>
 </section>
+  <section class="section" data-mode="civil">
   <div class="heading">00 / НАЛАШТУВАННЯ</div>
+
   <div class="panel">
     <div class="region">
       <b>ГЕОЛОКАЦІЯ</b>
       <input type="checkbox" id="geoToggle">
       <small id="geoStatus" style="color:var(--muted);display:block;margin-top:6px">
-  Геолокацию вимкнено
-</small>
+        Геолокацію вимкнено
+      </small>
     </div>
+
     <div class="region">
       <b>СПОВІЩЕННЯ</b>
       <input type="checkbox" id="notifyToggle">
     </div>
+
     <div class="region">
       <b>РАДІУС ПОДІЙ</b>
       <strong><span id="radiusValue">10</span> км</strong>
     </div>
+
     <input
       type="range"
       id="radiusRange"
@@ -169,6 +174,7 @@ footer{
       value="10"
       style="width:100%;accent-color:#84965b"
     >
+
     <small style="color:var(--muted)">
       Радіус відображення місцевих подій
     </small>
