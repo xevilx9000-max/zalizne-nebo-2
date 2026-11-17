@@ -298,10 +298,11 @@ function setMode(mode) {
     : "Громадянський моніторинг: тривоги, безпека, сповіщення та місцеві події.";
 
   document.querySelectorAll("[data-mode]").forEach(section => {
-  section.style.display = section.dataset.mode === mode ? "" : "none";
-});
+    section.style.display = section.dataset.mode === mode ? "" : "none";
+  });
 
-
+  localStorage.setItem("varta_mode", mode);
+}
 civilMode.addEventListener("click", () => setMode("civil"));
 extendedMode.addEventListener("click", () => setMode("extended"));
 
