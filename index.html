@@ -80,6 +80,39 @@ footer{
   text-align:center;color:#697363;font-size:10px;
   padding:25px 0 20px;letter-spacing:1px
 }
+ .mode-switch {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:16px;
+  padding:6px;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:10px;
+}
+
+.mode-button {
+  margin:0;
+  background:transparent;
+  color:var(--muted);
+  border:1px solid transparent;
+  padding:13px 5px;
+  font-size:11px;
+  border-radius:7px;
+}
+
+.mode-button.active {
+  background:var(--olive);
+  color:#10150e;
+  border-color:var(--olive);
+}
+
+.mode-description {
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.5;
+  margin-top:10px;
+} 
 </style>
 </head>
 <body>
