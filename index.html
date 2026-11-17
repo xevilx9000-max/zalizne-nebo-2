@@ -269,6 +269,70 @@ function filterNearbyEvents(events) {
     ) <= radius;
   });
 }
+    function renderNearbyEvents(events) {
+  const container = document.getElementById("nearbyEvents");
+  const status = document.getElementById("eventsStatus");
+
+  container.replaceChildren();
+
+  if (!currentPosition) {
+    status.textContent = "ГЕОЛОКАЦІЯ ВИМКНЕНА";
+    return;
+  }
+
+  if (!Array.isArray(events) || events.length === 0) {
+    status.textContent = "ДЖЕРЕЛО НЕ ПІДКЛЮЧЕНО";
+    return;
+  }
+
+  const { latitude, longitude } = currentPosition.coords;
+
+  const nearby = filterNearbyEvents(events)
+    .map(event => ({
+      ...event,
+      distance: getDistanceKm(
+        latitude,
+        longitude,
+        event.lat,
+        event.lon
+      )
+    }))
+    .sort((a, b) => a.distance - b.distance);
+
+  if (nearby.length === 0) {
+    status.textContent = "НЕМАЄ ПОДІЙ У РАДІУСІ";
+    container.textContent = "Подій у вибраному радіусі немає.";
+    return;
+  }
+
+  status.textContent = "ЗНАЙДЕНО: " + nearby.length;
+
+  nearby.forEach(event => {
+    const item = document.createElement("div");
+    item.style.cssText =
+      "padding:10px 0;border-bottom:1px solid var(--border)";
+
+    const title = document.createElement("b");
+    title.textContent = event.title || "Подія";
+
+    const details = document.createElement("small");
+    details.style.cssText =
+      "display:block;color:var(--muted);margin-top:5px";
+
+    const date = new Date(event.time);
+    const timeText = Number.isNaN(date.getTime())
+      ? "Час не вказано"
+      : date.toLocaleString("uk-UA");
+
+    details.textContent =
+      event.distance.toFixed(1) + " км • " +
+      timeText + " • " +
+      (event.source || "Джерело не вказано");
+
+    item.append(title, details);
+    container.append(item);
+  });
+}
 function stopGeo() {
   if (geoWatchId !== null) {
     navigator.geolocation.clearWatch(geoWatchId);
