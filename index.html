@@ -99,6 +99,9 @@ footer{
     <div class="region">
       <b>ГЕОЛОКАЦІЯ</b>
       <input type="checkbox" id="geoToggle">
+      <small id="geoStatus" style="color:var(--muted);display:block;margin-top:6px">
+  Геолокацию вимкнено
+</small>
     </div>
     <div class="region">
       <b>СПОВІЩЕННЯ</b>
@@ -207,8 +210,58 @@ notifyToggle.checked = localStorage.getItem("varta_notify") === "true";
 radiusRange.value = localStorage.getItem("varta_radius") || 10;
 radiusValue.textContent = radiusRange.value;
 
+const geoStatus = document.getElementById("geoStatus");
+
+let geoWatchId = null;
+let currentPosition = null;
+
+function stopGeo() {
+  if (geoWatchId !== null) {
+    navigator.geolocation.clearWatch(geoWatchId);
+    geoWatchId = null;
+  }
+
+  currentPosition = null;
+  geoStatus.textContent = "Геолокацію вимкнено";
+}
+
+function startGeo() {
+  if (!("geolocation" in navigator)) {
+    geoStatus.textContent = "Геолокація недоступна";
+    geoToggle.checked = false;
+    localStorage.setItem("varta_geo", "false");
+    return;
+  }
+
+  geoStatus.textContent = "Отримання координат...";
+
+  geoWatchId = navigator.geolocation.watchPosition(
+    position => {
+      currentPosition = position;
+      geoStatus.textContent = "ГЕОЛОКАЦІЯ АКТИВНА";
+    },
+    error => {
+      geoStatus.textContent = "Помилка геолокації: " + error.message;
+      geoToggle.checked = false;
+      localStorage.setItem("varta_geo", "false");
+      stopGeo();
+    },
+    {
+      enableHighAccuracy: true,
+      maximumAge: 10000,
+      timeout: 15000
+    }
+  );
+}
+
 geoToggle.addEventListener("change", () => {
   localStorage.setItem("varta_geo", geoToggle.checked);
+
+  if (geoToggle.checked) {
+    startGeo();
+  } else {
+    stopGeo();
+  }
 });
 
 notifyToggle.addEventListener("change", async () => {
