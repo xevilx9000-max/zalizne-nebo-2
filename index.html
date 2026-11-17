@@ -240,18 +240,25 @@ function startGeo() {
       currentPosition = position;
       geoStatus.textContent = "ГЕОЛОКАЦІЯ АКТИВНА";
     },
-    error => {
+        error => {
+      if (geoWatchId !== null) {
+        navigator.geolocation.clearWatch(geoWatchId);
+        geoWatchId = null;
+      }
+
+      currentPosition = null;
       geoStatus.textContent = "Помилка геолокації: " + error.message;
       geoToggle.checked = false;
       localStorage.setItem("varta_geo", "false");
-      stopGeo();
     },
     {
       enableHighAccuracy: true,
       maximumAge: 10000,
       timeout: 15000
     }
-  );
+  );if (geoToggle.checked) {
+  startGeo();
+}
 }
 
 geoToggle.addEventListener("change", () => {
