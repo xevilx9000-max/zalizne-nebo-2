@@ -225,12 +225,12 @@ if ("serviceWorker" in navigator) {
 const notifyToggle = document.getElementById("notifyToggle");
 const radiusRange = document.getElementById("radiusRange");
 const radiusValue = document.getElementById("radiusValue");
-
+const eventsRadius = document.getElementById("eventsRadius");
 geoToggle.checked = localStorage.getItem("varta_geo") === "true";
 notifyToggle.checked = localStorage.getItem("varta_notify") === "true";
 radiusRange.value = localStorage.getItem("varta_radius") || 10;
 radiusValue.textContent = radiusRange.value;
-
+eventsRadius.textContent = radiusRange.value;
 const geoStatus = document.getElementById("geoStatus");
 
 let geoWatchId = null;
@@ -334,8 +334,9 @@ notifyToggle.addEventListener("change", async () => {
 });
 radiusRange.addEventListener("input", () => {
   radiusValue.textContent = radiusRange.value;
+  eventsRadius.textContent = radiusRange.value;
   localStorage.setItem("varta_radius", radiusRange.value);
-}); 
+});
 </script>
 </body>
 </html>
