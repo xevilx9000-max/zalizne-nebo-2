@@ -1,0 +1,195 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#080e12">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="ВАРТА">
+<title>ВАРТА — Центр безпеки</title>
+<style>
+:root {
+  --bg:#080e12;
+  --panel:#101a20;
+  --line:#24343b;
+  --green:#a5e6b2;
+  --muted:#82949b;
+  --amber:#e8b75d;
+}
+* {box-sizing:border-box}
+body {
+  margin:0;
+  background:radial-gradient(ellipse at top,#14252b 0%,var(--bg) 55%);
+  color:#e9f1ee;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  min-height:100vh;
+}
+header {
+  padding:24px 20px 18px;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.brand {display:flex;align-items:center;gap:12px}
+.emblem {
+  width:43px;height:43px;border:1px solid var(--green);
+  border-radius:12px;display:grid;place-items:center;
+  color:var(--green);font-size:23px;
+}
+h1 {font-size:23px;letter-spacing:5px;margin:0}
+.sub {font-size:9px;color:var(--muted);letter-spacing:2px;margin-top:4px}
+.clock {text-align:right;font-size:17px;font-weight:600}
+.clock small {display:block;color:var(--muted);font-size:10px;font-weight:400}
+main {padding:18px;max-width:700px;margin:auto}
+.section-title {
+  color:var(--green);font-size:10px;letter-spacing:2px;
+  margin:25px 0 12px;
+}
+.card {
+  background:linear-gradient(145deg,#142128,#0d151a);
+  border:1px solid var(--line);
+  border-radius:15px;padding:17px;margin-bottom:12px;
+}
+.status {display:flex;align-items:center;gap:12px}
+.dot {
+  width:10px;height:10px;border-radius:50%;
+  background:var(--amber);box-shadow:0 0 12px #e8b75d66;
+}
+.status strong {font-size:14px;letter-spacing:1px}
+.status p {font-size:11px;color:var(--muted);margin:5px 0 0}
+.tag {
+  margin-left:auto;border:1px solid #806332;color:var(--amber);
+  border-radius:6px;padding:5px 7px;font-size:9px;
+}
+.map {
+  min-height:220px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;
+  background:
+    linear-gradient(#23353b55 1px,transparent 1px),
+    linear-gradient(90deg,#23353b55 1px,transparent 1px),
+    #0b1419;
+  background-size:25px 25px;
+}
+.map-icon {font-size:42px;color:var(--green);margin-bottom:10px}
+.map strong {letter-spacing:2px;font-size:13px}
+.map p {color:var(--muted);font-size:11px;max-width:250px;line-height:1.5}
+.button {
+  display:block;text-align:center;text-decoration:none;
+  background:#172b2d;border:1px solid #456b56;
+  color:var(--green);padding:14px;border-radius:10px;
+  font-size:12px;font-weight:600;letter-spacing:1px;
+  margin-top:12px;
+}
+.grid {display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.metric {background:#101a20;border:1px solid var(--line);border-radius:12px;padding:14px}
+.metric small {color:var(--muted);font-size:9px;letter-spacing:1px}
+.metric strong {display:block;margin-top:9px;font-size:14px}
+.metric span {color:var(--amber);font-size:10px}
+.source {display:flex;justify-content:space-between;gap:10px;padding:12px 0;border-bottom:1px solid var(--line);font-size:11px}
+.source:last-child {border:0}
+.source span:last-child {color:var(--amber)}
+footer {text-align:center;padding:25px;color:#607179;font-size:9px;letter-spacing:1px}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <div class="emblem">⛨</div>
+    <div>
+      <h1>ВАРТА</h1>
+      <div class="sub">ЦЕНТР ГРОМАДСЬКОЇ БЕЗПЕКИ</div>
+    </div>
+  </div>
+  <div class="clock">
+    <span id="time">--:--:--</span>
+    <small id="date">ЗАВАНТАЖЕННЯ</small>
+  </div>
+</header>
+
+<main>
+  <div class="section-title">01 / ЗАГАЛЬНИЙ СТАН</div>
+  <div class="card">
+    <div class="status">
+      <div class="dot"></div>
+      <div>
+        <strong>ДЖЕРЕЛО ДАНИХ НЕ ПІДКЛЮЧЕНО</strong>
+        <p>Статус повітряних тривог не перевірено</p>
+      </div>
+      <div class="tag">ОЧІКУВАННЯ</div>
+    </div>
+  </div>
+
+  <div class="section-title">02 / КАРТА УКРАЇНИ</div>
+  <div class="card map">
+    <div class="map-icon">⌖</div>
+    <strong>ГЕОІНФОРМАЦІЙНИЙ МОДУЛЬ</strong>
+    <p>Для перегляду актуальних офіційних попереджень відкрий карту зовнішнього джерела.</p>
+    <a class="button" href="https://map.ukrainealarm.com/" target="_blank" rel="noopener">ВІДКРИТИ ОФІЦІЙНУ КАРТУ ↗</a>
+  </div>
+
+  <div class="section-title">03 / СИСТЕМНІ ПОКАЗНИКИ</div>
+  <div class="grid">
+    <div class="metric">
+      <small>СТАН ЗВ'ЯЗКУ</small>
+      <strong id="connection">ПЕРЕВІРКА</strong>
+      <span>Інтернет-з'єднання</span>
+    </div>
+    <div class="metric">
+      <small>ОНОВЛЕННЯ</small>
+      <strong>НЕ ПІДКЛЮЧЕНО</strong>
+      <span>Очікується джерело</span>
+    </div>
+    <div class="metric">
+      <small>ЧАС СИСТЕМИ</small>
+      <strong>ЛОКАЛЬНИЙ</strong>
+      <span>Годинник пристрою</span>
+    </div>
+    <div class="metric">
+      <small>РЕЖИМ</small>
+      <strong>ІНФОРМАЦІЙНИЙ</strong>
+      <span>Версія 1.0 / Alpha</span>
+    </div>
+  </div>
+
+  <div class="section-title">04 / ЦЕНТР ДЖЕРЕЛ</div>
+  <div class="card">
+    <div class="source"><span>Повітряна тривога</span><span>ЗОВНІШНЄ ДЖЕРЕЛО</span></div>
+    <div class="source"><span>ДСНС України</span><span>ОФІЦІЙНЕ</span></div>
+    <div class="source"><span>Історія подій</span><span>НЕ ПІДКЛЮЧЕНО</span></div>
+    <a class="button" href="https://www.dsns.gov.ua/" target="_blank" rel="noopener">ВІДКРИТИ ДСНС ↗</a>
+    <a class="button" href="https://www.ukrainealarm.com/" target="_blank" rel="noopener">ПОВІТРЯНА ТРИВОГА ↗</a>
+  </div>
+
+  <div class="section-title">05 / ПРО СИСТЕМУ</div>
+  <div class="card">
+    <p style="font-size:12px;line-height:1.7;color:#a9b8bc;margin:0">
+      ВАРТА — персональна інформаційна панель громадської безпеки.
+      Дані про тривоги, попередження та безпеку мають перевірятися
+      за офіційними джерелами. Ця початкова версія не отримує
+      оперативних даних автоматично.
+    </p>
+  </div>
+</main>
+
+<footer>ВАРТА / ЗАЛІЗНЕ НЕБО 2.0<br>ІНФОРМАЦІЙНА СИСТЕМА · ALPHA</footer>
+
+<script>
+function updateClock() {
+  const now = new Date();
+  document.getElementById('time').textContent =
+    now.toLocaleTimeString('uk-UA');
+  document.getElementById('date').textContent =
+    now.toLocaleDateString('uk-UA',{day:'2-digit',month:'long',year:'numeric'});
+}
+updateClock();
+setInterval(updateClock,1000);
+document.getElementById('connection').textContent =
+  navigator.onLine ? 'ОНЛАЙН' : 'ОФЛАЙН';
+window.addEventListener('online',()=>document.getElementById('connection').textContent='ОНЛАЙН');
+window.addEventListener('offline',()=>document.getElementById('connection').textContent='ОФЛАЙН');
+</script>
+</body>
+</html>
