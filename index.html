@@ -206,6 +206,32 @@ a { color:var(--olive2); }
 @media(min-width:600px) {
   .screen { padding-left:22px;padding-right:22px; }
 }
+  .mode-switch {
+  display: flex;
+  gap: 8px;
+  padding: 5px;
+  margin: 12px 0;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+.mode-btn {
+  flex: 1;
+  padding: 12px 8px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.mode-btn.active {
+  background: #414b2d;
+  color: #fff;
+  border-color: #68764a;
+}
 </style>
 </head>
 
@@ -213,6 +239,14 @@ a { color:var(--olive2); }
 <div class="app">
 
 <header>
+  <div class="mode-switch">
+  <button class="mode-btn active" onclick="setMode('civilian')">
+    ЦИВІЛЬНИМ
+  </button>
+  <button class="mode-btn" onclick="setMode('military')">
+    ВІЙСЬКОВИМ
+  </button>
+</div>
   <div class="brand">
     <div class="logo">В</div>
     <div>
