@@ -559,7 +559,17 @@ function showScreen(id) {
   screens.forEach(screen => screen.classList.toggle('active', screen.id === id));
   navButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.screen === id));
 }
+function setMode(mode) {
+  document.querySelectorAll('.mode-btn').forEach(btn => {
+    btn.classList.toggle('active',
+      btn.textContent.trim().toLowerCase().includes(
+        mode === 'civilian' ? 'цивільним' : 'військовим'
+      )
+    );
+  });
 
+  document.body.dataset.mode = mode;
+}
 const dateEl = document.getElementById('currentDate');
 dateEl.textContent = new Date().toLocaleDateString('uk-UA', {
   weekday:'long', day:'numeric', month:'long', year:'numeric'
