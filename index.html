@@ -569,22 +569,13 @@ function showScreen(id) {
 
     btn.classList.toggle('active', isActive);
   });
-const savedMode = localStorage.getItem('varta_mode');
-setMode(savedMode || 'civilian');
+
   document.body.dataset.mode = mode;
   localStorage.setItem('varta_mode', mode);
 }
-function setMode(mode) {
-  document.querySelectorAll('.mode-btn').forEach(btn => {
-    btn.classList.toggle('active',
-      btn.textContent.trim().toLowerCase().includes(
-        mode === 'civilian' ? 'цивільним' : 'військовим'
-      )
-    );
-  });
 
-  document.body.dataset.mode = mode;
-}
+const savedMode = localStorage.getItem('varta_mode');
+setMode(savedMode || 'civilian');
 const dateEl = document.getElementById('currentDate');
 dateEl.textContent = new Date().toLocaleDateString('uk-UA', {
   weekday:'long', day:'numeric', month:'long', year:'numeric'
