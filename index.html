@@ -569,7 +569,8 @@ function showScreen(id) {
 
     btn.classList.toggle('active', isActive);
   });
-
+const savedMode = localStorage.getItem('varta_mode');
+setMode(savedMode || 'civilian');
   document.body.dataset.mode = mode;
   localStorage.setItem('varta_mode', mode);
 }
