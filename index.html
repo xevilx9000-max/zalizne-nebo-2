@@ -559,6 +559,20 @@ function showScreen(id) {
   screens.forEach(screen => screen.classList.toggle('active', screen.id === id));
   navButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.screen === id));
 }
+  function setMode(mode) {
+  if (!['civilian', 'military'].includes(mode)) return;
+
+  document.querySelectorAll('.mode-btn').forEach(btn => {
+    const isActive = btn.textContent.trim().toLowerCase().includes(
+      mode === 'civilian' ? 'цивільним' : 'військовим'
+    );
+
+    btn.classList.toggle('active', isActive);
+  });
+
+  document.body.dataset.mode = mode;
+  localStorage.setItem('varta_mode', mode);
+}
 function setMode(mode) {
   document.querySelectorAll('.mode-btn').forEach(btn => {
     btn.classList.toggle('active',
