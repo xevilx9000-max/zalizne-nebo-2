@@ -376,12 +376,24 @@ a { color:var(--olive2); }
 <section class="screen" id="tactics">
   <h1>Тактичний набір</h1>
   <div class="subtitle">Інструменти та базова підготовка</div>
-<!-- ТАКТИКА -->
-    <div class="card" data-mode-only="military">
-    <div class="card-title">Військовий режим</div>
   <div class="card" data-mode-only="military">
     <div class="card-title">Військовий режим</div>
     <div class="muted">Дотримуйся наказів командування. Використовуй лише дозволені засоби зв’язку та навігації. Не публікуй фото, координати й відомості про розташування підрозділів.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Компас</div>
+    <div class="compass">
+      <span class="compass-label north">N</span>
+      <span class="compass-label south">S</span>
+      <span class="compass-label east">E</span>
+      <span class="compass-label west">W</span>
+      <div class="needle" id="needle">↑</div>
+    </div>
+    <div class="muted" style="text-align:center" id="compassStatus">Для роботи компаса потрібен дозвіл на орієнтацію пристрою.</div>
+    <div class="actions" style="justify-content:center">
+      <button class="action primary" onclick="startCompass()">Увімкнути компас</button>
+    </div>
   </div>
       <span class="compass-label south">S</span>
       <span class="compass-label east">E</span>
