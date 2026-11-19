@@ -784,7 +784,8 @@ async function startCompass() {
       }
     }
 
-    window.addEventListener('deviceorientation', handleOrientation, true);
+ window.addEventListener('deviceorientation', handleOrientation, true);
+window.addEventListener('deviceorientationabsolute', handleOrientation, true);
     status.textContent = 'Очікуємо дані датчика…';
   } catch (error) {
     status.textContent = 'Не вдалося запустити компас. Перевір дозволи пристрою.';
