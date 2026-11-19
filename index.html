@@ -783,14 +783,6 @@ function handleOrientation(event) {
   status.textContent = 'Напрямок: ' + Math.round(heading) + '°';
 }
 
-async function startCompass() {
-  const status = document.getElementById('compassStatus');
-
-  if (!window.DeviceOrientationEvent) {
-    status.textContent = 'Компас не підтримується цим пристроєм.';
-    return;
-  }
-
   try {
     if (typeof DeviceOrientationEvent.requestPermission === 'function') {
       const permission = await DeviceOrientationEvent.requestPermission();
