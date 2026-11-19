@@ -314,6 +314,36 @@ a { color:var(--olive2); }
   color: var(--muted);
   font-size: 10px;
 }
+  @media (max-width: 480px) {
+  header {
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px 14px;
+  }
+
+  .brand {
+    order: 1;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .header-actions {
+    order: 2;
+    flex-shrink: 0;
+  }
+
+  .mode-switch {
+    order: 3;
+    flex: 1 1 100%;
+    margin: 0;
+  }
+
+  .mode-btn {
+    min-width: 0;
+    padding: 10px 6px;
+    font-size: 11px;
+  }
+}
 </style>
 </head>
 
