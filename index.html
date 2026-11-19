@@ -749,38 +749,72 @@ function getLocation() {
   );
 }
 
+
 // КОМПАС
+let compassStarted = false;
+
 function handleOrientation(event) {
+  const status = document.getElementById('compassStatus');
+  const needle = document.getElementById('needle');
+
   let heading = null;
 
+  // iPhone
   if (typeof event.webkitCompassHeading === 'number') {
     heading = event.webkitCompassHeading;
-  } else if (typeof event.alpha === 'number') {
-    heading = 360 - event.alpha;
+  }
+  // Android и другие устройства с абсолютной ориентацией
+  else if (typeof event.alpha === 'number' &&
+           (event.absolute === true || event.type === 'deviceorientationabsolute')) {
+    const screenAngle = screen.orientation?.angle ??
+      (typeof window.orientation === 'number' ? window.orientation : 0);
+
+    heading = (360 - event.alpha + screenAngle) % 360;
   }
 
-  if (heading !== null) {
-    document.getElementById('needle').style.transform =
-      'rotate(' + heading + 'deg)';
-    document.getElementById('compassStatus').textContent =
-      'Напрямок: ' + Math.round(heading) + '°';
+  if (heading === null || !Number.isFinite(heading)) {
+    status.textContent = 'Очікуємо дані компаса…';
+    return;
   }
+
+  heading = (heading + 360) % 360;
+
+  needle.style.transform = 'rotate(' + heading + 'deg)';
+  status.textContent = 'Напрямок: ' + Math.round(heading) + '°';
 }
 
 async function startCompass() {
   const status = document.getElementById('compassStatus');
 
   if (!window.DeviceOrientationEvent) {
-    status.textContent = 'Компас не підтримується цим пристроєм або браузером.';
+    status.textContent = 'Компас не підтримується цим пристроєм.';
     return;
   }
 
   try {
     if (typeof DeviceOrientationEvent.requestPermission === 'function') {
       const permission = await DeviceOrientationEvent.requestPermission();
+
       if (permission !== 'granted') {
-        status.textContent = 'Дозвіл на використання компаса не надано.';
+        status.textContent = 'Дозвіл на компас не надано.';
         return;
+      }
+    }
+
+    window.removeEventListener('deviceorientation', handleOrientation, true);
+    window.removeEventListener('deviceorientationabsolute', handleOrientation, true);
+
+    window.addEventListener('deviceorientation', handleOrientation, true);
+    window.addEventListener('deviceorientationabsolute', handleOrientation, true);
+
+    compassStarted = true;
+    status.textContent = 'Очікуємо дані датчика…';
+
+  } catch (error) {
+    status.textContent = 'Не вдалося запустити компас. Перевір дозволи.';
+  }
+}
+
       }
     }
 
