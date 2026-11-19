@@ -332,47 +332,43 @@ a { color:var(--olive2); }
     </div>
   </div>
 </section>
-
 <!-- МАПА -->
 <section class="screen" id="map">
-  <h1>Мапа</h1>
-  <div class="subtitle">Оперативні карти та корисні георесурси</div>
+  <h1>Мапа тривог</h1>
+  <div class="subtitle">Оперативна ситуація в регіонах України</div>
 
-  <div class="card">
-    <div class="card-title">DeepStateMap</div>
-    <div class="muted">OSINT-карта. Інформація про лінію зіткнення та зміни обстановки. Дані не є офіційним повідомленням державного органу.</div>
-    <div class="actions">
-      <a class="action primary full" href="https://deepstatemap.live/" target="_blank" rel="noopener">Відкрити DeepState ↗</a>
+  <div class="alert-summary">
+    <div>
+      <div class="muted">Активні тривоги</div>
+      <div class="alert-count" id="activeAlerts">—</div>
     </div>
+    <div class="alert-indicator" id="alertStatus">Завантаження...</div>
   </div>
 
-  <div class="card">
-    <div class="card-title">Мапа повітряних тривог</div>
-    <div class="muted">Перегляд актуальних сповіщень на зовнішньому ресурсі.</div>
-    <div class="actions">
-      <a class="action full" href="https://alerts.in.ua/" target="_blank" rel="noopener">Відкрити мапу тривог ↗</a>
-    </div>
+  <div class="map-legend">
+    <span><i class="legend-dot red"></i> Тривога</span>
+    <span><i class="legend-dot yellow"></i> Часткова тривога</span>
+    <span><i class="legend-dot green"></i> Немає тривоги</span>
   </div>
 
-  <div class="card">
-    <div class="card-title">Мапа укриттів</div>
-    <div class="muted">Інтерактивна база укриттів ще не підключена. Перевіряй адресу та доступність укриття через місцеву владу або офіційні ресурси громади.</div>
-    <div class="actions">
-      <a class="action full" href="https://dsns.gov.ua/" target="_blank" rel="noopener">Ресурси ДСНС ↗</a>
-    </div>
+  <div class="alert-map-container">
+    <div id="alertMap"></div>
   </div>
 
-  <div class="card">
-    <div class="card-title">Твоя геолокація</div>
-    <div class="muted" id="locationText">Координати не запитувались.</div>
-    <div class="actions">
-      <button class="action primary" onclick="getLocation()">Визначити місце</button>
-    </div>
+  <div class="card alert-details" id="alertDetails">
+    <div class="card-title">Інформація про регіон</div>
+    <div class="muted">Натисни на область або район на карті.</div>
   </div>
 
-  <div class="notice">Дані зовнішніх карт можуть оновлюватися із затримкою. Завжди перевіряй час оновлення та першоджерело.</div>
+  <div class="map-footer">
+    <span id="mapUpdated">Оновлення: очікування даних</span>
+    <button class="action" onclick="refreshAlerts()">Оновити</button>
+  </div>
+
+  <div class="notice">
+    Інформація має довідковий характер. Для рішень щодо безпеки орієнтуйся на офіційні сповіщення.
+  </div>
 </section>
-
 <section class="screen" id="tactics">
   <h1>Тактичний набір</h1>
   <div class="subtitle">Інструменти та базова підготовка</div>
