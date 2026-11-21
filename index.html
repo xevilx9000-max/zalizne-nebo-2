@@ -679,8 +679,13 @@ function showScreen(id) {
   });
 
   document.getElementById(id).classList.add('active');
-
-  document.querySelectorAll('.nav-btn').forEach(button => {
+  if (id === 'map') {
+    setTimeout(() => {
+      if (window.alertMapInstance) {
+        window.alertMapInstance.invalidateSize();
+      }
+    }, 100);
+  }  document.querySelectorAll('.nav-btn').forEach(button => {
     button.classList.toggle('active', button.dataset.screen === id);
   });
 }
