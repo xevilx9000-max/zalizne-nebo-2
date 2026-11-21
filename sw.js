@@ -1,11 +1,17 @@
-const CACHE_NAME = "varta-shell-v5";const FILES = [
+const CACHE_NAME = "varta-shell-v6";
+
+const FILES = [
   "./",
   "./index.html",
   "./manifest.webmanifest",
   "./varta-icon-192.png",
-  "./varta-icon-512.png"
+  "./varta-icon-512.png",
+  "./vendor/leaflet/leaflet.js",
+  "./vendor/leaflet/leaflet.css",
+  "./vendor/leaflet/images/marker-icon.png",
+  "./vendor/leaflet/images/marker-icon-2x.png",
+  "./vendor/leaflet/images/marker-shadow.png"
 ];
-
 self.addEventListener("install", event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
