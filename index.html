@@ -862,8 +862,21 @@ async function startCompass() {
     status.textContent = 'Не вдалося запустити компас. Перевір дозволи.';
   }
 }
+// КАРТА УКРАЇНИ
+function initAlertMap() {
+  if (window.alertMapInstance) return;
 
-</script>
+  window.alertMapInstance = L.map('alertMap', {
+    zoomControl: true,
+    minZoom: 5,
+    maxZoom: 18
+  }).setView([48.3794, 31.1656], 6);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors',
+    maxZoom: 19
+  }).addTo(window.alertMapInstance);
+}</script>
 
 <script>
 if ("serviceWorker" in navigator) {
