@@ -680,7 +680,7 @@ function showScreen(id) {
 
   document.getElementById(id).classList.add('active');
   if (id === 'map') {
-    setTimeout(() => {
+    initAlertMap();    setTimeout(() => {
       if (window.alertMapInstance) {
         window.alertMapInstance.invalidateSize();
       }
