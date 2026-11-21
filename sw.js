@@ -1,7 +1,4 @@
-
-const CACHE_NAME = "varta-shell-v4";
-
-const FILES = [
+const CACHE_NAME = "varta-shell-v5";const FILES = [
   "./",
   "./index.html",
   "./manifest.webmanifest",
