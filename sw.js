@@ -1,4 +1,4 @@
-const CACHE_NAME = "varta-shell-v6";
+const CACHE_NAME = "varta-shell-v7";
 
 const FILES = [
   "./",
@@ -10,9 +10,10 @@ const FILES = [
   "./vendor/leaflet/leaflet.css",
   "./vendor/leaflet/images/marker-icon.png",
   "./vendor/leaflet/images/marker-icon-2x.png",
-  "./vendor/leaflet/images/marker-shadow.png"
-];
-self.addEventListener("install", event => {
+  "./vendor/leaflet/images/marker-shadow.png",
+  "./vendor/leaflet/images/layers.png",
+  "./vendor/leaflet/images/layers-2x.png"
+];self.addEventListener("install", event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => cache.addAll(FILES))
