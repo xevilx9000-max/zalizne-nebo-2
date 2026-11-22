@@ -11,14 +11,17 @@ const FILES = [
   "./vendor/leaflet/images/marker-icon-2x.png",
   "./vendor/leaflet/images/marker-shadow.png",
   "./vendor/leaflet/images/layers.png",
-    "./vendor/leaflet/images/layers-2x.png",
+   "./vendor/leaflet/images/layers-2x.png",
   "./vendor/leaflet/geoBoundaries-UKR-ADM1_simplified.geojson"
-];    caches.open(CACHE_NAME)
+];
+
+self.addEventListener("install", event => {
+  event.waitUntil(
+    caches.open(CACHE_NAME)
       .then(cache => cache.addAll(FILES))
       .then(() => self.skipWaiting())
   );
 });
-
 self.addEventListener("activate", event => {
   event.waitUntil(
     caches.keys().then(keys =>
