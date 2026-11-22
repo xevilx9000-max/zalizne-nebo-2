@@ -871,6 +871,7 @@ function refreshAlerts() {
   document.getElementById('mapUpdated').textContent =
     'Оновлення: очікуємо підключення API';
 }// КАРТА УКРАЇНИ
+
 function initAlertMap() {
   if (window.alertMapInstance) return;
 
@@ -884,7 +885,37 @@ function initAlertMap() {
     attribution: '&copy; OpenStreetMap contributors',
     maxZoom: 19
   }).addTo(window.alertMapInstance);
-}</script>
+
+  fetch('./vendor/leaflet/geoBoundaries-UKR-ADM1_simplified.geojson')
+    .then(response => {
+      if (!response.ok) throw new Error('GeoJSON не завантажено');
+      return response.json();
+    })
+    .then(data => {
+      window.ukraineRegionsLayer = L.geoJSON(data, {
+        style: {
+          color: '#a3ae82',
+          weight: 1.5,
+          opacity: 0.9,
+          fillColor: '#87936a',
+          fillOpacity: 0.18
+        },
+        onEachFeature: (feature, layer) => {
+          layer.on('click', () => {
+            const name = feature.properties.shapeName || 'Невідомий регіон';
+
+            document.getElementById('alertDetails').innerHTML =
+              '<div class="card-title">Інформація про регіон</div>' +
+              '<div>' + name + '</div>' +
+              '<div class="muted">Статус тривоги: немає даних</div>';
+          });
+        }
+      }).addTo(window.alertMapInstance);
+    })
+    .catch(error => {
+      console.error('Помилка завантаження областей:', error);
+    });
+}
 
 <script>
 if ("serviceWorker" in navigator) {
