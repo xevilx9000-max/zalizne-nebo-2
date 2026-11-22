@@ -1,5 +1,4 @@
-const CACHE_NAME = "varta-shell-v7";
-
+const CACHE_NAME = "varta-shell-v8";
 const FILES = [
   "./",
   "./index.html",
