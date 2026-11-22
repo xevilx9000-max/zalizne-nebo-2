@@ -862,7 +862,13 @@ async function startCompass() {
     status.textContent = 'Не вдалося запустити компас. Перевір дозволи.';
   }
 }
-// КАРТА УКРАЇНИ
+  // СТАТУС ДАНИХ ТРИВОГ
+function refreshAlerts() {
+  document.getElementById('activeAlerts').textContent = '—';
+  document.getElementById('alertStatus').textContent = 'API не підключено';
+  document.getElementById('mapUpdated').textContent =
+    'Оновлення: очікуємо підключення API';
+}// КАРТА УКРАЇНИ
 function initAlertMap() {
   if (window.alertMapInstance) return;
 
