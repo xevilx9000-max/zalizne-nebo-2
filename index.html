@@ -890,12 +890,11 @@ function initAlertMap() {
     .then(data => {
       window.ukraineRegionsLayer = L.geoJSON(data, {
         style: {
-          color: '#a3ae82',
-          weight: 1.5,
-          opacity: 0.9,
+                    color: '#c5d19f',
+          weight: 2,
+          opacity: 1,
           fillColor: '#87936a',
-          fillOpacity: 0.18
-        },
+          fillOpacity: 0.08        },
         onEachFeature: (feature, layer) => {
           layer.on('click', () => {
             const name = feature.properties.shapeName || 'Невідомий регіон';
